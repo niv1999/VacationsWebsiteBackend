@@ -3,19 +3,21 @@ from facades.vacation_facade import *
 
 class Test:
 
-    def __init__(self):
-        self.user_facade = UserFacade()
-        self.vacation_facade = VacationFacade()
-
     def test_sign_up(self):
         try:
-            user_id = self.user_facade.sign_up("Bart", "Simpson", "simpbart1@outlook.com", "1234")
-            print(f"User #{user_id} added successfully!")
+            with UserFacade() as user_facade:
+                user_id = user_facade.sign_up("Efrat", "Gosh", "efgefg@outlook.com", "1234")
+                print(f"User #{user_id} added successfully!")
         except Exception as err:
             print(err)
 
     def test_log_in(self):
-        pass
+        try:
+            with UserFacade() as user_facade:
+                user = user_facade.log_in("simpbart1@outlook.com", "12345678")
+                print(f"Welcome {user.first_name} {user.last_name}!\nThank you for logging in 🥰")
+        except Exception as err:
+            print(err)
 
     def test_add_like(self):
         pass
@@ -45,12 +47,4 @@ class Test:
         self.test_update_vacation()
         self.test_delete_vacation()
 
-    def close(self):
-        self.user_facade.close()
-        self.vacation_facade.close()
 
-    def __enter__(self):
-        return self
-    
-    def __exit__(self, ex_type, ex_value, ex_trace):
-        self.close()

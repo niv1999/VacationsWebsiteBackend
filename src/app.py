@@ -1,4 +1,4 @@
 from test import *
 
-with Test() as test:
-    test.test_all()
+test = Test()
+test.test_all()

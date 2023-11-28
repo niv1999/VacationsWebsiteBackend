@@ -30,8 +30,29 @@ class UserFacade:
         user.user_id = self.user_logic.add_user(user)
         return user.user_id
     
-    def log_in(self):
-        pass
+    # User log in via email and password
+    def log_in(self, email, password):
+
+        # Check if all arguments has values
+        if any(arg is None or arg=='' for arg in (email, password)):
+            raise ValueError("All arguments must have values and cannot be left blank.")
+        
+        # Check if email is valid
+        if not validate_email(email):
+            raise ValueError("Invalid Email.")
+        
+        # Check if password is at least 4 characters long
+        if len(password) < 4:
+            raise ValueError("Password must be at least 4 characters long.")
+        
+        # Get the user
+        user = self.user_logic.get_one_user(email, password)
+
+        # If email+password does not exist:
+        if user is None:
+            raise ValueError("Something is wrong! check your email and password please.")
+        
+        return user
 
     def add_like(self):
         pass
@@ -41,3 +62,9 @@ class UserFacade:
 
     def close(self):
         self.user_logic.close()
+
+    def __enter__(self):
+        return self
+    
+    def __exit__(self, ex_type, ex_value, ex_trace):
+        self.close()

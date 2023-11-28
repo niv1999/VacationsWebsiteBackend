@@ -19,3 +19,9 @@ class VacationFacade:
 
     def close(self):
         self.vacation_logic.close()
+
+    def __enter__(self):
+        return self
+    
+    def __exit__(self, ex_type, ex_value, ex_trace):
+        self.close()

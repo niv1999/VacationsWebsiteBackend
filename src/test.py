@@ -8,8 +8,11 @@ class Test:
         self.vacation_facade = VacationFacade()
 
     def test_sign_up(self):
-        user_id = self.user_facade.sign_up("Johnny", "Depp", "JD123@hotmail.com", "132444dw")
-        print(f"User #{user_id} added successfully!")
+        try:
+            user_id = self.user_facade.sign_up("Bart", "Simpson", "simpbart1@outlook.com", "1234")
+            print(f"User #{user_id} added successfully!")
+        except Exception as err:
+            print(err)
 
     def test_log_in(self):
         pass

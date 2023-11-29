@@ -10,7 +10,7 @@ class VacationModel:
         self.end_date = end_date
         self.price = price
         self.file_name = file_name
-    
+
     # Display the vacation:
     def display(self):
         print(f"Vacation ID: {self.vacation_id}, Country ID: {self.country_id}")

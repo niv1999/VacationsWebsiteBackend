@@ -31,8 +31,8 @@ class VacationLogic:
     
     # Update an existing vacation:
     def update_vacation(self, vacation):
-        sql = "UPDATE vacations SET country_id=%s, description=%s, start_date=%s, end_date=%s, price=%s, file_name=%s"
-        params = (vacation.country_id, vacation.description, vacation.start_date, vacation.end_date, vacation.price, vacation.file_name)
+        sql = "UPDATE vacations SET country_id=%s, description=%s, start_date=%s, end_date=%s, price=%s, file_name=%s WHERE vacation_id=%s"
+        params = (vacation.country_id, vacation.description, vacation.start_date, vacation.end_date, vacation.price, vacation.file_name, vacation.vacation_id)
         rows_affected_count = self.dal.update(sql, params)
         return rows_affected_count
     

@@ -14,8 +14,10 @@ class VacationFacade:
     def update_vacation(self):
         pass
 
-    def delete_vacation(self):
-        pass
+    def delete_vacation(self, vacation_id):
+        rows_affected = self.vacation_logic.delete_vacation(vacation_id)
+        if rows_affected == 0:
+            raise ValueError("Non-existent vacation ID")
 
     def close(self):
         self.vacation_logic.close()

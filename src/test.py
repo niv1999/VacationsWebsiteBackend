@@ -49,7 +49,13 @@ class Test:
         pass
 
     def test_delete_vacation(self):
-        pass
+        try:
+            with VacationFacade() as vacation_facade:
+                vacation_id = 12
+                vacation_facade.delete_vacation(vacation_id)
+                print(f"Vacation #{vacation_id} has been successfully deleted.")
+        except Exception as err:
+            print(err)
 
     def test_all(self):
         self.test_sign_up()

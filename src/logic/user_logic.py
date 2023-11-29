@@ -32,16 +32,15 @@ class UserLogic:
         return True
     
     # User adding a like to a vacation
-    def add_like(self, user, vacation):
+    def add_like(self, user_id, vacation_id):
         sql = "INSERT INTO likes (user_id, vacation_id) VALUES (%s, %s)"
-        params = (user.user_id, vacation.vacation_id)
-        last_inserted_id = self.dal.insert(sql, params)
-        return last_inserted_id
-    
+        params = (user_id, vacation_id)
+        self.dal.insert(sql, params)
+        
     # User removing a like from a vacation
-    def delete_like(self, user, vacation):
+    def delete_like(self, user_id, vacation_id):
         sql = "DELETE FROM likes WHERE user_id = %s AND vacation_id = %s"
-        params = (user.user_id, vacation.vacation_id)
+        params = (user_id, vacation_id)
         rows_affected_count = self.dal.delete(sql, params)
         return rows_affected_count
     

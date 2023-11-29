@@ -53,12 +53,16 @@ class UserFacade:
             raise ValueError("Something is wrong! check your email and password please.")
         
         return user
+    
+    # Add like
+    def add_like(self, user_id, vacation_id):
+        self.user_logic.add_like(user_id, vacation_id)
 
-    def add_like(self):
-        pass
-
-    def delete_like(self):
-        pass
+    # Delete like
+    def delete_like(self, user_id, vacation_id):
+        rows_affected = self.user_logic.delete_like(user_id, vacation_id)
+        if rows_affected == 0:
+            raise ValueError("That user did not like the vacation in the first place.")
 
     def close(self):
         self.user_logic.close()

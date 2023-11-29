@@ -20,10 +20,24 @@ class Test:
             print(err)
 
     def test_add_like(self):
-        pass
+        try:
+            with UserFacade() as user_facade:
+                user_id = 3
+                vacation_id = 3
+                user_facade.add_like(user_id, vacation_id)
+                print(f"User #{user_id} has liked vacation #{vacation_id}!")
+        except Exception as err:
+            print(err)
 
     def test_delete_like(self):
-        pass
+        try:
+            with UserFacade() as user_facade:
+                user_id = 3
+                vacation_id = 3
+                user_facade.delete_like(user_id, vacation_id)
+                print(f"User #{user_id} has unliked vacation #{vacation_id}!")
+        except Exception as err:
+            print(err)
 
     def test_get_all_vacations(self):
         pass
@@ -46,5 +60,3 @@ class Test:
         self.test_add_vacation()
         self.test_update_vacation()
         self.test_delete_vacation()
-
-

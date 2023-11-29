@@ -40,10 +40,21 @@ class Test:
             print(err)
 
     def test_get_all_vacations(self):
-        pass
+        try: 
+            with VacationFacade() as vacation_facade:
+                vacations_list = vacation_facade.get_all_vacations()
+                # for vacation in vacations_list:
+                #     vacation.display() 
+        except Exception as err:
+            print (err)
 
     def test_add_vacation(self):
-        pass
+        try: 
+            with VacationFacade() as vacation_facade:
+                last_inserted_id = vacation_facade.add_vacation( 5, "Explore the historic city of Jerusalem, where ancient history and modern life intertwine. Visit the Old City, home to iconic landmarks such as the Western Wall, the Church of the Holy Sepulchre, and the bustling markets.", "2023-12-1", "2023-12-2", "6000", "Jerusalem Haven_jpg")
+                print (f"There is a new vacation inserted in {last_inserted_id} id in table")
+        except Exception as err:
+            print (err)
 
     def test_update_vacation(self):
         pass

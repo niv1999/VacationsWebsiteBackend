@@ -39,14 +39,15 @@ class VacationFacade:
         vacation.vacation_id = self.vacation_logic.add_vacation(vacation)
         return vacation.vacation_id
 
-    def update_vacation(self, vacation_id, country_id, description, start_date, end_date, price, file_name):
+    def update_vacation(self, vacation_id, country_id, description, start_date, end_date, price, file_name=None):
         
         # Check if the vacation exists:
-        if self.vacation_logic.get_one_vacation(vacation_id) is None:
+        existing_vacation = self.vacation_logic.get_one_vacation(vacation_id)
+        if existing_vacation is None:
             raise ValueError("The vacation doesn't exist in the database.")
         
         # Check if all arguments have values:
-        if any(arg is None or arg=='' for arg in (country_id, description, start_date, end_date, price, file_name)): 
+        if any(arg is None or arg=='' for arg in (country_id, description, start_date, end_date, price)): 
             raise ValueError("All arguments must have values and cannot be left blank.")
         
         # Check if price is between 0 to 10,000:
@@ -61,6 +62,10 @@ class VacationFacade:
         if formatted_start_date > formatted_end_date:
             raise ValueError("The end date of the vacation can't be sooner than the start date")
         
+        # If no file name was sent, extract the file name from the existing vacation:
+        if file_name is None:
+            file_name = existing_vacation.file_name
+    
         vacation = VacationModel(vacation_id, country_id, description, start_date, end_date, price, file_name)
         rows_affected = self.vacation_logic.update_vacation(vacation)
         if rows_affected == 0:

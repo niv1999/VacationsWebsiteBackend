@@ -19,6 +19,7 @@ class VacationLogic:
     def get_one_vacation(self, vacation_id):
         sql = "SELECT * FROM vacations WHERE vacation_id = %s"
         result = self.dal.get_scalar(sql, (vacation_id, ))
+        if not result: return None # If the dictionary is empty (meaning vacation ID does not exist) return None.
         vacation = VacationModel.dictionary_to_vacation(result)
         return vacation
     

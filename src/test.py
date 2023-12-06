@@ -33,7 +33,7 @@ class Test:
         try:
             with UserFacade() as user_facade:
                 user_id = 1
-                vacation_id = 13
+                vacation_id = 9
                 user_facade.delete_like(user_id, vacation_id)
                 print(f"User #{user_id} has unliked vacation #{vacation_id}!")
         except Exception as err:
@@ -69,7 +69,7 @@ class Test:
     def test_delete_vacation(self):
         try:
             with VacationFacade() as vacation_facade:
-                vacation_id = 17
+                vacation_id = 13
                 vacation_facade.delete_vacation(vacation_id)
                 print(f"Vacation #{vacation_id} has been successfully deleted.")
         except Exception as err:

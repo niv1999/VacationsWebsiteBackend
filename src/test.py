@@ -22,7 +22,7 @@ class Test:
     def test_add_like(self):
         try:
             with UserFacade() as user_facade:
-                user_id = 3
+                user_id = 1
                 vacation_id = 9
                 user_facade.add_like(user_id, vacation_id)
                 print(f"User #{user_id} has liked vacation #{vacation_id}!")
@@ -42,7 +42,8 @@ class Test:
     def test_get_all_vacations(self):
         try: 
             with VacationFacade() as vacation_facade:
-                vacations_list = vacation_facade.get_all_vacations()
+                sorting_factor = "start_date"
+                vacations_list = vacation_facade.get_all_vacations_sorted(sorting_factor)
                 for vacation in vacations_list:
                     vacation.display()
                     print("---------------------------------") 

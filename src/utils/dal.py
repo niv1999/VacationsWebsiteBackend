@@ -3,7 +3,7 @@ import mysql.connector
 # Data Access Layer:
 class DAL:
     
-    # ctor - creating a connection:
+    # Ctor - creating a connection:
     def __init__(self):
         self.connection = mysql.connector.connect(host="localhost", user="root", password="", database="vacations")
 
@@ -29,7 +29,7 @@ class DAL:
             last_row_id = cursor.lastrowid
             return last_row_id
 
-    # Updating existing row:    
+    # Updating an existing row:    
     def update(self, sql, params=None):
         with self.connection.cursor() as cursor:
             cursor.execute(sql, params)
@@ -37,7 +37,7 @@ class DAL:
             row_count = cursor.rowcount
             return row_count
     
-    # Deleting existing row:
+    # Deleting an existing row:
     def delete(self, sql, params=None):
         with self.connection.cursor() as cursor:
             cursor.execute(sql, params)

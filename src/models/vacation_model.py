@@ -18,7 +18,7 @@ class VacationModel:
         print(f"Dates: {self.start_date} - {self.end_date}")
         print(f"Price: ${self.price}")
 
-    # Convert dictionary to Vacation Model:
+    # Convert dictionary to a Vacation Model:
     def dictionary_to_vacation(dict):
         vacation = VacationModel(
             dict["vacation_id"], dict["country_id"], dict["description"], dict["start_date"], dict["end_date"], dict["price"], dict["file_name"])

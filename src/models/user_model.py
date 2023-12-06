@@ -14,7 +14,7 @@ class UserModel:
     def display(self):
         print(f"ID: {self.user_id}, Name: {self.first_name} {self.last_name}, Email: {self.email}, Password: {self.password}, Role ID: {self.role_id}")
     
-    # Convert dictionary to User Model:
+    # Convert dictionary to a User Model:
     @staticmethod
     def dictionary_to_user(dictionary):
         user = UserModel(

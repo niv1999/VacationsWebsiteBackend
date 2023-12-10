@@ -13,14 +13,14 @@ class VacationFacade:
     def get_all_vacations_sorted(self, sorting_factor, *, reverse=False):
 
         # Check if "sorting_factor" is in fact a Vacation Model attribute:
-        if not sorting_factor.lower() in ("vacation_id","country_id","description","start_date", "end_date","price"):
+        if not sorting_factor.lower() in ("vacation_id", "country_id", "description", "start_date", "end_date", "price"):
             raise ValueError("The sorting factor sent is not a vacation attribute.")
         
         # Get all vacations:
         vacations_list = self.vacation_logic.get_all_vacations()
 
         # Sort the vacations list by the sorting factor sent (using the "operator" module to convert the string to a Vacation Model attribute):
-        sorted_vacations_list = sorted(vacations_list, key=attrgetter(sorting_factor.lower()), reverse=reverse)
+        sorted_vacations_list = sorted(vacations_list, key=attrgetter(sorting_factor.lower()), reverse=reverse) 
         return sorted_vacations_list
 
     # Add a new vacation:
@@ -30,9 +30,13 @@ class VacationFacade:
         if any(arg is None or arg=='' for arg in (country_id, description, start_date, end_date, price, file_name)): 
             raise ValueError("All arguments must have values and cannot be left blank.")
         
+        # Check if the country ID exists in the database:
+        if not self.vacation_logic.check_country(country_id):
+            raise ValueError("There's no such country ID in the database")
+        
         # Check if price is between 0 to 10,000:
-        if float(price) < 0 or float(price) > 10000: 
-            raise ValueError("The price must be between 0 and 10,000.")
+        if not 0 <= float(price) <= 10000: 
+            raise ValueError("The price must be between $0 and $10,000.")
         
         # Check the current date and convert the date strings into date format by using the "datetime" module:
         current_date = datetime.now().date()
@@ -45,7 +49,7 @@ class VacationFacade:
         
         # Check that the start date is before the end date:
         if formatted_start_date > formatted_end_date:
-            raise ValueError("The end date of the vacation can't be sooner than the start date")
+            raise ValueError("The end date of the vacation can't be before the start date")
         
         # Create a vacation object and return its automatically generated ID:
         vacation = VacationModel(None, country_id, description, start_date, end_date, price, file_name)
@@ -64,9 +68,13 @@ class VacationFacade:
         if any(arg is None or arg=='' for arg in (country_id, description, start_date, end_date, price)): 
             raise ValueError("All arguments must have values and cannot be left blank.")
         
+        # Check if the country ID exists in the database:
+        if not self.vacation_logic.check_country(country_id):
+            raise ValueError("There's no such country ID in the database")
+        
         # Check if price is between 0 to 10,000:
-        if float(price) < 0 or float(price) > 10000: 
-            raise ValueError("The price must be between 0 and 10,000.")
+        if not 0 <= float(price) <= 10000: 
+            raise ValueError("The price must be between $0 and $10,000.")
         
         # Convert the start and end dates from string to a date type using the "datetime" module:
         formatted_start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
@@ -74,7 +82,7 @@ class VacationFacade:
 
         # Check that the start date is before the end date:
         if formatted_start_date > formatted_end_date:
-            raise ValueError("The end date of the vacation can't be sooner than the start date")
+            raise ValueError("The end date of the vacation can't be before the start date")
         
         # If no file name was sent, extract the file name from the existing vacation:
         if file_name is None:

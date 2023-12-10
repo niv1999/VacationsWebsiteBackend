@@ -24,13 +24,29 @@ class UserLogic:
         user = UserModel.dictionary_to_user(result)
         return user
     
+    # Get a user by user ID:
+    def get_one_user_by_id(self, user_id):
+        sql = "SELECT * FROM users WHERE user_id = %s"
+        result = self.dal.get_scalar(sql, (user_id, ))
+        if result is None: return None # In case there is no user with this ID return None.
+        user = UserModel.dictionary_to_user(result)
+        return user
+    
     # Check if email exists in the database, return True if it is, and False if its not:
     def check_email(self, email):
         sql = "SELECT * FROM users WHERE email = %s"
         result = self.dal.get_scalar(sql, (email, ))
         if result is None: return False
         return True
-    
+
+    # Check if the like already exists, return True if it is, and False if its not:
+    def check_like(self, user_id, vacation_id):
+        sql = "SELECT * FROM likes WHERE user_id = %s AND vacation_id = %s"
+        params = (user_id, vacation_id)
+        result = self.dal.get_scalar(sql, params)
+        if result is None: return False
+        return True
+
     # User adding a like to a vacation:
     def add_like(self, user_id, vacation_id):
         sql = "INSERT INTO likes (user_id, vacation_id) VALUES (%s, %s)"

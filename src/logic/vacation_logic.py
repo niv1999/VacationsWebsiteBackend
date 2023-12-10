@@ -23,6 +23,13 @@ class VacationLogic:
         vacation = VacationModel.dictionary_to_vacation(result)
         return vacation
     
+    # Check if the country exists in the database, return True if it is, and False if its not:
+    def check_country(self, country_id):
+        sql = "SELECT * FROM countries WHERE country_id = %s"
+        result = self.dal.get_scalar(sql, (country_id, ))
+        if result is None: return False
+        return True
+    
     # Add a new vacation:
     def add_vacation(self, vacation):
         sql = "INSERT INTO vacations (country_id, description, start_date, end_date, price, file_name) VALUES (%s, %s, %s, %s, %s, %s)"

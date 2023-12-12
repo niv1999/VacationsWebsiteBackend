@@ -8,16 +8,16 @@ class VacationLogic:
     def __init__(self):
         self.dal = DAL()
 
-    # Return all vacations:
+    # Return all vacations and the respective country name:
     def get_all_vacations(self):
-        sql = "SELECT * FROM vacations"
+        sql = "SELECT v.*, c.country_name FROM vacations AS v JOIN countries AS c ON v.country_id = c.country_id"
         result = self.dal.get_table(sql)
         vacation_list = VacationModel.dictionaries_to_vacations(result)
         return vacation_list
     
-    # Return one vacation by ID:
+    # Return one vacation by ID including the country name:
     def get_one_vacation(self, vacation_id):
-        sql = "SELECT * FROM vacations WHERE vacation_id = %s"
+        sql = "SELECT v.*, c.country_name FROM vacations AS v JOIN countries AS c ON v.country_id = c.country_id WHERE vacation_id = %s"
         result = self.dal.get_scalar(sql, (vacation_id, ))
         if not result: return None # If the dictionary is empty (meaning vacation ID does not exist) return None.
         vacation = VacationModel.dictionary_to_vacation(result)

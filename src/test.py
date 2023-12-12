@@ -43,7 +43,7 @@ class Test:
         try: 
             with VacationFacade() as vacation_facade:
                 sorting_factor = "start_date"
-                vacations_list = vacation_facade.get_all_vacations_sorted(sorting_factor) # You can send reverse=True for a descending list.
+                vacations_list = vacation_facade.get_all_vacations_sorted(sorting_factor) # You can also send reverse=True for a descending list.
                 for vacation in vacations_list:
                     vacation.display()
                     print("---------------------------------\n")
@@ -53,7 +53,7 @@ class Test:
     def test_add_vacation(self):
         try: 
             with VacationFacade() as vacation_facade:
-                last_vacation_id = vacation_facade.add_vacation(5, "Explore the historic city of Jerusalem, where ancient history and modern life intertwine. Visit the Old City, home to iconic landmarks such as the Western Wall, the Church of the Holy Sepulchre, and the bustling markets.", "2023-12-26", "2023-12-31", "6000", "jerusalem_haven.jpg")
+                last_vacation_id = vacation_facade.add_vacation(5, "Explore the historic city of Jerusalem, where ancient history and modern life intertwine. Visit the Old City, home to iconic landmarks such as the Western Wall, the Church of the Holy Sepulchre, and the bustling markets.", "2024-06-26", "2024-07-01", "6000", "jerusalem_haven.jpg")
                 print (f"Vacation #{last_vacation_id} has been added!")
         except Exception as err:
             print (err)

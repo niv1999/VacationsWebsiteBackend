@@ -13,7 +13,7 @@ class VacationFacade:
     def get_all_vacations_sorted(self, sorting_factor, *, reverse=False):
 
         # Check if "sorting_factor" is in fact a Vacation Model attribute:
-        if not sorting_factor.lower() in ("vacation_id", "country_id", "description", "start_date", "end_date", "price"):
+        if not sorting_factor.lower() in ("vacation_id", "country_id", "description", "start_date", "end_date", "price", "country_name"):
             raise ValueError("The sorting factor sent is not a vacation attribute.")
         
         # Get all vacations:

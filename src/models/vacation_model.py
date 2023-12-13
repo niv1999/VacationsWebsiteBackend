@@ -1,8 +1,8 @@
 # Vacation Model:
 class VacationModel:
 
-    # Ctor (country_name is optional):
-    def __init__(self, vacation_id, country_id, description, start_date, end_date, price, file_name, country_name=None):
+    # Ctor:
+    def __init__(self, vacation_id, country_id, description, start_date, end_date, price, file_name):
         self.vacation_id = vacation_id
         self.country_id = country_id
         self.description = description
@@ -10,7 +10,7 @@ class VacationModel:
         self.end_date = end_date
         self.price = price
         self.file_name = file_name
-        self.country_name = country_name
+        self.country_name = self.get_country_name(country_id)
 
     # Display the vacation:
     def display(self):
@@ -19,11 +19,20 @@ class VacationModel:
         print(f"Dates: {self.start_date} - {self.end_date}")
         print(f"Price: ${self.price}")
 
+    # Get country name using country_id:
+    def get_country_name(self, country_id):
+
+        # Import within the function to resolve circular import error (VacationLogic is importing from VacationModel, causing an endless loop of importing)
+        from logic.vacation_logic import VacationLogic
+        vacation_logic = VacationLogic()
+        country = vacation_logic.get_country(country_id)
+        return country["country_name"]
+
     # Convert dictionary to a Vacation Model:
     @staticmethod
     def dictionary_to_vacation(dict):
         vacation = VacationModel(
-            dict["vacation_id"], dict["country_id"], dict["description"], dict["start_date"], dict["end_date"], dict["price"], dict["file_name"], dict["country_name"])
+            dict["vacation_id"], dict["country_id"], dict["description"], dict["start_date"], dict["end_date"], dict["price"], dict["file_name"])
         return vacation
     
     # Convert a list of dictionaries to a list of Vacation Models:

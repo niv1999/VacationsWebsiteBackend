@@ -13,7 +13,7 @@ class VacationFacade:
     def get_all_vacations_sorted(self, sorting_factor, *, reverse=False):
 
         # Check if "sorting_factor" is in fact a Vacation Model attribute:
-        if not sorting_factor.lower() in ("vacation_id", "country_id", "description", "start_date", "end_date", "price", "country_name"):
+        if not sorting_factor.lower() in ("vacation_id", "country_id", "description", "start_date", "end_date", "price", "file_name"):
             raise ValueError("The sorting factor sent is not a vacation attribute.")
         
         # Get all vacations:
@@ -31,7 +31,7 @@ class VacationFacade:
             raise ValueError("All arguments must have values and cannot be left blank.")
         
         # Check if the country ID exists in the database:
-        if not self.vacation_logic.check_country(country_id):
+        if self.vacation_logic.get_country(country_id) is None:
             raise ValueError("There's no such country ID in the database")
         
         # Check if price is between 0 to 10,000:
@@ -69,7 +69,7 @@ class VacationFacade:
             raise ValueError("All arguments must have values and cannot be left blank.")
         
         # Check if the country ID exists in the database:
-        if not self.vacation_logic.check_country(country_id):
+        if self.vacation_logic.get_country(country_id) is None:
             raise ValueError("There's no such country ID in the database")
         
         # Check if price is between 0 to 10,000:

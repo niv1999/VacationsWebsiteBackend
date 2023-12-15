@@ -23,7 +23,7 @@ class Test:
         try:
             with UserFacade() as user_facade:
                 user_id = 2
-                vacation_id = 5
+                vacation_id = 6
                 user_facade.add_like(user_id, vacation_id)
                 print(f"User #{user_id} has liked vacation #{vacation_id}!")
         except Exception as err:
@@ -33,7 +33,7 @@ class Test:
         try:
             with UserFacade() as user_facade:
                 user_id = 2
-                vacation_id = 5
+                vacation_id = 6
                 user_facade.delete_like(user_id, vacation_id)
                 print(f"User #{user_id} has unliked vacation #{vacation_id}!")
         except Exception as err:
@@ -53,7 +53,8 @@ class Test:
     def test_add_vacation(self):
         try: 
             with VacationFacade() as vacation_facade:
-                last_vacation_id = vacation_facade.add_vacation(5, "Explore the historic city of Jerusalem, where ancient history and modern life intertwine. Visit the Old City, home to iconic landmarks such as the Western Wall, the Church of the Holy Sepulchre, and the bustling markets.", "2024-06-26", "2024-07-01", "6000", "jerusalem_haven.jpg")
+                role_id = 1
+                last_vacation_id = vacation_facade.add_vacation(role_id, 5, "Explore the historic city of Jerusalem, where ancient history and modern life intertwine. Visit the Old City, home to iconic landmarks such as the Western Wall, the Church of the Holy Sepulchre, and the bustling markets.", "2024-06-26", "2024-07-01", "6000", "jerusalem_haven.jpg")
                 print (f"Vacation #{last_vacation_id} has been added!")
         except Exception as err:
             print (err)
@@ -61,7 +62,8 @@ class Test:
     def test_update_vacation(self):
         try:
             with VacationFacade() as vacation_facade:
-                response = vacation_facade.update_vacation(13, 2, "Explore the historic city of Athens, where ancient history and modern life intertwine. Visit the Old City, home to iconic landmarks such as the Western Wall, the Church of the Holy Sepulchre, and the bustling markets.", "2023-10-01", "2023-10-4", "5000")
+                role_id = 1
+                response = vacation_facade.update_vacation(role_id, 13, 2, "Explore the historic city of Athens, where ancient history and modern life intertwine. Visit the Old City, home to iconic landmarks such as the Western Wall, the Church of the Holy Sepulchre, and the bustling markets.", "2023-10-01", "2023-10-4", "5000")
                 print(response)
         except Exception as err:
             print(err)
@@ -69,8 +71,9 @@ class Test:
     def test_delete_vacation(self):
         try:
             with VacationFacade() as vacation_facade:
+                role_id = 1
                 vacation_id = 13
-                vacation_facade.delete_vacation(vacation_id)
+                vacation_facade.delete_vacation(role_id, vacation_id)
                 print(f"Vacation #{vacation_id} has been successfully deleted.")
         except Exception as err:
             print(err)
